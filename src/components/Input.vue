@@ -1,9 +1,11 @@
 <template>
   <div class="input-wrapper">
     <h4>Mari belanja!!!</h4>
-    <input type="text" placeholder="1" class="jumlah-barang" />
-    <input type="text" placeholder="Nama barang" class="nama-barang" />
-    <button>Tambah</button>
+    <form>
+      <input type="text" placeholder="1" class="jumlah-barang" />
+      <input type="text" placeholder="Nama barang" class="nama-barang" />
+      <button>Tambah</button>
+    </form>
   </div>
 </template>
 
@@ -12,6 +14,7 @@
 <style scoped>
   .input-wrapper {
     text-align: center;
+    margin: 2rem 0;
   }
 
   h4 {
@@ -21,9 +24,9 @@
 
   input {
     display: inline-block;
-    margin: 0 10px;
+    margin-right: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
   }
 
   input:focus {
@@ -31,19 +34,19 @@
   }
 
   .jumlah-barang {
-    width: 30px;
+    width: 50px;
     padding: 5px;
     text-align: center;
   }
 
   .nama-barang {
-    padding: 5px;
+    padding: 5px 10px;
   }
 
   button {
-    padding: 5px;
+    padding: 5px 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     background-color: white;
     color: teal;
   }
