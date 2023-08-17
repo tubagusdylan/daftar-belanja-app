@@ -1,10 +1,13 @@
 <template>
   <div class="footer">
-    <p>Barang masih kosong!</p>
+    <p v-if="listBarang.length > 0">Barang ada {{ listBarang.length }}</p>
+    <p v-else>Barang masih kosong!</p>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  const props = defineProps(["listBarang"]);
+</script>
 
 <style scoped>
   .footer {

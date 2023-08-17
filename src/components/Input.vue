@@ -5,18 +5,19 @@
       <input type="text" placeholder="1" class="jumlah-barang" :value="total" @input="inputJumlah" />
       <input type="text" placeholder="Nama barang" class="nama-barang" :value="nama" @input="inputBarang" />
       <button>Tambah</button>
+      <p class="error" v-if="error">Input tidak boleh kosong</p>
     </form>
   </div>
 </template>
 
 <script setup>
-  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang"]);
+  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang", "error"]);
 </script>
 
 <style scoped>
   .input-wrapper {
     text-align: center;
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   h4 {
@@ -33,6 +34,10 @@
 
   input:focus {
     outline: 3px solid skyblue;
+  }
+
+  .error {
+    color: rgb(255, 168, 168);
   }
 
   .jumlah-barang {

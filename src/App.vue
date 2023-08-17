@@ -2,10 +2,10 @@
   <div class="background">
     <div class="container">
       <Header />
-      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" />
+      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :error="errorInput" />
       <ListBelanja :listBarang="listBarang" />
       <ListControl />
-      <Info />
+      <Info :listBarang="listBarang" />
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
   const listBarang = ref([]);
   const totalBarang = ref("");
   const namaBarang = ref("");
+  const errorInput = ref(false);
   const idList = ref(1);
 
   const inputJumlah = (e) => {
@@ -31,10 +32,15 @@
   };
 
   const addList = () => {
-    listBarang.value.push({ id: idList.value, total: totalBarang.value, nama: namaBarang.value });
+    if (namaBarang.value.length === 0 || totalBarang.value.length === 0) {
+      errorInput.value = true;
+      return;
+    }
+    listBarang.value.push({ id: idList.value, total: totalBarang.value, nama: namaBarang.value, done: false });
     totalBarang.value = "";
     namaBarang.value = "";
     idList.value++;
+    errorInput.value = false;
   };
 </script>
 
