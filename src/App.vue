@@ -2,8 +2,8 @@
   <div class="background">
     <div class="container">
       <Header />
-      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :error="errorInput" />
-      <ListBelanja :listBarang="listBarang" />
+      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :error="errorInput" :isEdit="isEdit" :cancelEdit="cancelEditHandler" />
+      <ListBelanja :listBarang="listBarang" :editHandler="editHandler" />
       <ListControl />
       <Info :listBarang="listBarang" />
     </div>
@@ -23,6 +23,8 @@
   const namaBarang = ref("");
   const errorInput = ref(false);
   const idList = ref(1);
+  const isEdit = ref(false);
+  const editList = ref({});
 
   const inputJumlah = (e) => {
     totalBarang.value = e.target.value;
@@ -36,11 +38,43 @@
       errorInput.value = true;
       return;
     }
+
+    if (editList.value.id) {
+      const updateList = {
+        id: editList.value.id,
+        total: totalBarang.value,
+        nama: namaBarang.value,
+        done: false,
+      };
+
+      const index = listBarang.value.findIndex((current) => {
+        return current.id === editList.value.id;
+      });
+
+      listBarang.value.splice(index, 1, updateList);
+
+      return cancelEditHandler();
+    }
+
     listBarang.value.push({ id: idList.value, total: totalBarang.value, nama: namaBarang.value, done: false });
     totalBarang.value = "";
     namaBarang.value = "";
     idList.value++;
     errorInput.value = false;
+  };
+
+  const editHandler = (list) => {
+    editList.value = list;
+    totalBarang.value = list.total;
+    namaBarang.value = list.nama;
+    isEdit.value = true;
+  };
+
+  const cancelEditHandler = () => {
+    isEdit.value = false;
+    totalBarang.value = "";
+    namaBarang.value = "";
+    editList.value = {};
   };
 </script>
 

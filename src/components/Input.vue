@@ -1,17 +1,19 @@
 <template>
   <div class="input-wrapper">
     <h4>Mari belanja!!!</h4>
-    <form @submit.prevent="onSubmit">
+    <div>
       <input type="text" placeholder="1" class="jumlah-barang" :value="total" @input="inputJumlah" />
       <input type="text" placeholder="Nama barang" class="nama-barang" :value="nama" @input="inputBarang" />
-      <button>Tambah</button>
+      <button v-if="isEdit" @click="onSubmit">Update</button>
+      <button v-if="isEdit" @click="cancelEdit">Cancel</button>
+      <button v-else @click="onSubmit">Tambah</button>
       <p class="error" v-if="error">Input tidak boleh kosong</p>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
-  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang", "error"]);
+  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang", "error", "isEdit", "cancelEdit"]);
 </script>
 
 <style scoped>
@@ -52,6 +54,7 @@
 
   button {
     padding: 5px 10px;
+    margin-right: 5px;
     border: none;
     border-radius: 50px;
     background-color: white;

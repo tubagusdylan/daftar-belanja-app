@@ -17,9 +17,7 @@
 </template>
 
 <script setup>
-  import { ref } from "vue";
-
-  const props = defineProps(["listBarang"]);
+  const props = defineProps(["listBarang", "editHandler"]);
 
   const listDoneHandler = (list) => {
     list.done = list.done ? false : true;
@@ -31,10 +29,6 @@
     });
 
     props.listBarang.splice(index, 1);
-  };
-
-  const editHandler = (list) => {
-    console.log("edit");
   };
 </script>
 
