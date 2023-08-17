@@ -3,8 +3,8 @@
     <div class="container">
       <Header />
       <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :error="errorInput" :isEdit="isEdit" :cancelEdit="cancelEditHandler" />
-      <ListBelanja :listBarang="listBarang" :editHandler="editHandler" />
-      <ListControl />
+      <ListBelanja :listBarang="listBarang" :editHandler="editHandler" :sortBy="sortBy" />
+      <ListControl :cleanUp="cleanUp" :sortBy="sortBy" :sortOption="sortOptionHandle" />
       <Info :listBarang="listBarang" />
     </div>
   </div>
@@ -25,6 +25,7 @@
   const idList = ref(1);
   const isEdit = ref(false);
   const editList = ref({});
+  const sortBy = ref("check");
 
   const inputJumlah = (e) => {
     totalBarang.value = e.target.value;
@@ -33,12 +34,17 @@
     namaBarang.value = e.target.value;
   };
 
+  const sortOptionHandle = (e) => {
+    sortBy.value = e.target.value;
+  };
+
   const addList = () => {
     if (namaBarang.value.length === 0 || totalBarang.value.length === 0) {
       errorInput.value = true;
       return;
     }
 
+    // For edit list
     if (editList.value.id) {
       const updateList = {
         id: editList.value.id,
@@ -75,6 +81,10 @@
     totalBarang.value = "";
     namaBarang.value = "";
     editList.value = {};
+  };
+
+  const cleanUp = () => {
+    listBarang.value = [];
   };
 </script>
 

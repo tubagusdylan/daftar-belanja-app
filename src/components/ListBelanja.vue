@@ -1,7 +1,7 @@
 <template>
   <div class="list-container">
     <div class="list-wrapper">
-      <div v-for="list in listBarang" :key="list.id" class="list">
+      <div v-for="list in sortedList" :key="list.id" class="list">
         <div>
           <input type="checkbox" class="check" :id="list.id" @click="listDoneHandler(list)" :checked="list.done" />
           <label :for="list.id" v-if="list.done" class="list-done">{{ list.total }} {{ list.nama }} </label>
@@ -17,7 +17,21 @@
 </template>
 
 <script setup>
-  const props = defineProps(["listBarang", "editHandler"]);
+  import { computed } from "vue";
+
+  const props = defineProps(["listBarang", "editHandler", "sortBy"]);
+
+  const sortedList = computed(() => {
+    if (props.sortBy === "check") {
+      return props.listBarang.slice().sort((a, b) => a.done - b.done);
+    }
+    if (props.sortBy === "abjad") {
+      return props.listBarang.slice().sort((a, b) => a.nama.localeCompare(b.nama));
+    }
+    if (props.sortBy === "input") {
+      return props.listBarang;
+    }
+  });
 
   const listDoneHandler = (list) => {
     list.done = list.done ? false : true;

@@ -1,15 +1,17 @@
 <template>
   <div class="input-wrapper">
-    <select name="sorting" id="sorting" class="option-sort">
-      <option value=" ">Urut berdasarkan urutan input</option>
-      <option value=" ">Urut berdasarkan abjad</option>
-      <option value=" ">Urut berdasarkan jumlah barang</option>
+    <select name="sorting" id="sorting" class="option-sort" :value="sortBy" @change="sortOption">
+      <option value="check">Urut berdasarkan checklist</option>
+      <option value="input">Urut berdasarkan urutan input</option>
+      <option value="abjad">Urut berdasarkan abjad</option>
     </select>
-    <button>Bersihkan</button>
+    <button @click="cleanUp">Bersihkan</button>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  const props = defineProps(["cleanUp", "sortBy", "sortOption"]);
+</script>
 
 <style scoped>
   .input-wrapper {

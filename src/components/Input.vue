@@ -1,13 +1,14 @@
 <template>
   <div class="input-wrapper">
     <h4>Mari belanja!!!</h4>
+    <p class="error" v-if="error">Input tidak boleh kosong</p>
+
     <div>
       <input type="text" placeholder="1" class="jumlah-barang" :value="total" @input="inputJumlah" />
       <input type="text" placeholder="Nama barang" class="nama-barang" :value="nama" @input="inputBarang" />
       <button v-if="isEdit" @click="onSubmit">Update</button>
       <button v-if="isEdit" @click="cancelEdit">Cancel</button>
       <button v-else @click="onSubmit">Tambah</button>
-      <p class="error" v-if="error">Input tidak boleh kosong</p>
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@
   .input-wrapper {
     text-align: center;
     margin: 1rem 0;
+    position: relative;
   }
 
   h4 {
@@ -40,6 +42,9 @@
 
   .error {
     color: rgb(255, 168, 168);
+    position: absolute;
+    top: 30px;
+    right: 15px;
   }
 
   .jumlah-barang {
