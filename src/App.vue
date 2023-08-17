@@ -2,8 +2,8 @@
   <div class="background">
     <div class="container">
       <Header />
-      <Input />
-      <ListBelanja />
+      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" />
+      <ListBelanja :listBarang="listBarang" />
       <ListControl />
       <Info />
     </div>
@@ -16,6 +16,26 @@
   import ListBelanja from "./components/ListBelanja.vue";
   import ListControl from "./components/ListControl.vue";
   import Info from "./components/Info.vue";
+  import { ref } from "vue";
+
+  const listBarang = ref([]);
+  const totalBarang = ref("");
+  const namaBarang = ref("");
+  const idList = ref(1);
+
+  const inputJumlah = (e) => {
+    totalBarang.value = e.target.value;
+  };
+  const inputBarang = (e) => {
+    namaBarang.value = e.target.value;
+  };
+
+  const addList = () => {
+    listBarang.value.push({ id: idList.value, total: totalBarang.value, nama: namaBarang.value });
+    totalBarang.value = "";
+    namaBarang.value = "";
+    idList.value++;
+  };
 </script>
 
 <style scoped>

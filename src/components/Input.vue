@@ -1,15 +1,17 @@
 <template>
   <div class="input-wrapper">
     <h4>Mari belanja!!!</h4>
-    <form>
-      <input type="text" placeholder="1" class="jumlah-barang" />
-      <input type="text" placeholder="Nama barang" class="nama-barang" />
+    <form @submit.prevent="onSubmit">
+      <input type="text" placeholder="1" class="jumlah-barang" :value="total" @input="inputJumlah" />
+      <input type="text" placeholder="Nama barang" class="nama-barang" :value="nama" @input="inputBarang" />
       <button>Tambah</button>
     </form>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang"]);
+</script>
 
 <style scoped>
   .input-wrapper {
