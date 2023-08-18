@@ -1,11 +1,10 @@
 <template>
   <div class="input-wrapper">
     <h4>Mari belanja!!!</h4>
-    <p class="error" v-if="error">Input tidak boleh kosong</p>
 
     <div>
-      <input type="text" placeholder="1" class="jumlah-barang" :value="total" @input="inputJumlah" />
-      <input type="text" placeholder="Nama barang" class="nama-barang" :value="nama" @input="inputBarang" />
+      <input type="number" placeholder="1" class="jumlah-barang" :class="[errorNama ? 'error-style' : 'correct-style']" :value="total" @input="inputJumlah" />
+      <input type="text" placeholder="Nama barang" class="nama-barang" :class="[errorNama ? 'error-style' : 'correct-style', isEdit ? 'edit-style' : 'non-edit-style']" :value="nama" @input="inputBarang" />
       <button v-if="isEdit" @click="onSubmit">Update</button>
       <button v-if="isEdit" @click="cancelEdit">Cancel</button>
       <button v-else @click="onSubmit">Tambah</button>
@@ -14,14 +13,13 @@
 </template>
 
 <script setup>
-  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang", "error", "isEdit", "cancelEdit"]);
+  const props = defineProps(["total", "nama", "onSubmit", "inputJumlah", "inputBarang", "errorNama", "errorJumlah", "isEdit", "cancelEdit"]);
 </script>
 
 <style scoped>
   .input-wrapper {
     text-align: center;
-    margin: 1rem 0;
-    position: relative;
+    margin: 2rem 0;
   }
 
   h4 {
@@ -40,21 +38,19 @@
     outline: 3px solid skyblue;
   }
 
-  .error {
-    color: rgb(255, 168, 168);
-    position: absolute;
-    top: 30px;
-    right: 15px;
-  }
-
   .jumlah-barang {
-    width: 50px;
+    width: 60px;
     padding: 5px;
     text-align: center;
   }
 
   .nama-barang {
     padding: 5px 10px;
+  }
+
+  .edit-style {
+    display: block;
+    margin: 10px auto;
   }
 
   button {
@@ -70,5 +66,24 @@
     background-color: rgb(0, 71, 71);
     color: white;
     cursor: pointer;
+  }
+
+  .error-style {
+    outline: 3px solid rgb(255, 100, 100);
+  }
+
+  .correct-style {
+    outline: none;
+  }
+
+  @media (min-width: 768px) {
+    .nama-barang {
+      display: inline-block;
+    }
+
+    .edit-style {
+      display: inline-block;
+      margin: 0 10px;
+    }
   }
 </style>

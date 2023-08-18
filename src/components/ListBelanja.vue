@@ -74,12 +74,32 @@
   }
 
   input.check {
-    display: inline-block;
     vertical-align: middle;
-    cursor: pointer;
+    appearance: none;
+    font: inherit;
+    margin-right: 10px;
     width: 18px;
     height: 18px;
-    margin-right: 10px;
+    border: 3px solid teal;
+    border-radius: 5px;
+    transform: translateY(-0.075em);
+    display: inline-grid;
+    place-content: center;
+  }
+
+  input.check::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 50ms transform ease-in-out;
+    box-shadow: inset 1em 1em teal;
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  input.check:checked::before {
+    transform: scale(1);
   }
 
   label {
@@ -108,7 +128,7 @@
 
   @media (min-width: 768px) {
     .list-wrapper {
-      width: 70%;
+      width: 80%;
     }
 
     label {

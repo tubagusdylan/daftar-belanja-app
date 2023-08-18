@@ -2,7 +2,7 @@
   <div class="background">
     <div class="container">
       <Header />
-      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :error="errorInput" :isEdit="isEdit" :cancelEdit="cancelEditHandler" />
+      <Input :total="totalBarang" :nama="namaBarang" :onSubmit="addList" :inputJumlah="inputJumlah" :inputBarang="inputBarang" :errorNama="errorNama" :errorJumlah="errorJumlah" :isEdit="isEdit" :cancelEdit="cancelEditHandler" />
       <ListBelanja :listBarang="listBarang" :editHandler="editHandler" :sortBy="sortBy" />
       <ListControl :cleanUp="cleanUp" :sortBy="sortBy" :sortOption="sortOptionHandle" />
       <Info :listBarang="listBarang" />
@@ -21,7 +21,8 @@
   const listBarang = ref([]);
   const totalBarang = ref("");
   const namaBarang = ref("");
-  const errorInput = ref(false);
+  const errorJumlah = ref(false);
+  const errorNama = ref(false);
   const idList = ref(1);
   const isEdit = ref(false);
   const editList = ref({});
@@ -39,8 +40,13 @@
   };
 
   const addList = () => {
-    if (namaBarang.value.length === 0 || totalBarang.value.length === 0) {
-      errorInput.value = true;
+    if (namaBarang.value.length === 0) {
+      errorNama.value = true;
+      return;
+    }
+
+    if (totalBarang.value.length === 0) {
+      errorJumlah.value = true;
       return;
     }
 
@@ -59,6 +65,9 @@
 
       listBarang.value.splice(index, 1, updateList);
 
+      errorNama.value = false;
+      errorJumlah.value = false;
+
       return cancelEditHandler();
     }
 
@@ -66,7 +75,8 @@
     totalBarang.value = "";
     namaBarang.value = "";
     idList.value++;
-    errorInput.value = false;
+    errorNama.value = false;
+    errorJumlah.value = false;
   };
 
   const editHandler = (list) => {
@@ -94,7 +104,7 @@
   }
   .container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: teal;
     margin: 0 auto;
   }
